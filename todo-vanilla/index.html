@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Todo - Vanilla JS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <h1>Todo</h1>
+      <p class="subtitle">간단한 생산성용 Todo 앱</p>
+    </header>
+
+    <section class="input-area">
+      <input id="todo-input" type="text" placeholder="할 일을 입력하세요">
+      <button id="add-btn" class="primary">추가</button>
+    </section>
+
+    <section class="date-view">
+      <button id="prev-day" class="date-btn" aria-label="이전 날짜">이전</button>
+      <div class="current-date-wrapper">
+        <div class="current-date" id="current-date"></div>
+        <button id="date-picker-toggle" class="date-picker-toggle" aria-label="달력 열기">
+          <span>📅</span>
+        </button>
+        <div id="calendar-popup" class="calendar-popup" aria-hidden="true"></div>
+      </div>
+      <button id="next-day" class="date-btn" aria-label="다음 날짜">다음</button>
+    </section>
+
+    <p id="message" class="message" aria-live="polite"></p>
+
+    <div class="filter-tabs">
+      <button class="tab-btn active" data-filter="all">전체</button>
+      <button class="tab-btn" data-filter="active">진행 중</button>
+      <button class="tab-btn" data-filter="completed">완료</button>
+    </div>
+
+    <ul id="todo-list" class="todo-list" aria-label="todo list"></ul>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
