@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-export default function TodoForm({ onAddTodo }) {
+export default function TodoForm({ selectedDate, onAddTodo }) {
   const [todoText, setTodoText] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onAddTodo(todoText);
+    onAddTodo(todoText, selectedDate);
     setTodoText("");
   };
 

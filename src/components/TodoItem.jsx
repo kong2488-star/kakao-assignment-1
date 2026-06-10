@@ -38,13 +38,13 @@ export default function TodoItem({
             onChange={(event) => setEditText(event.target.value)}
           />
           <button
-            className="rounded-xl bg-violet-700 px-3 py-2 text-sm font-semibold text-white"
+            className="rounded-xl bg-violet-700 px-3 py-2 text-sm font-semibold text-white transition hover:bg-violet-800"
             type="submit"
           >
             저장
           </button>
           <button
-            className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm font-semibold text-zinc-600"
+            className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm font-semibold text-zinc-600 transition hover:bg-zinc-50"
             type="button"
             onClick={cancelEditing}
           >
@@ -62,21 +62,21 @@ export default function TodoItem({
           </span>
           <div className="flex shrink-0 gap-2">
             <button
-              className="rounded-xl border border-violet-200 bg-white px-3 py-2 text-sm font-semibold text-violet-700"
+              className="rounded-xl border border-violet-200 bg-white px-3 py-2 text-sm font-semibold text-violet-700 transition hover:bg-violet-50"
               type="button"
               onClick={startEditing}
             >
               수정
             </button>
             <button
-              className="rounded-xl bg-violet-200 px-3 py-2 text-sm font-semibold text-violet-800"
+              className="rounded-xl bg-violet-200 px-3 py-2 text-sm font-semibold text-violet-800 transition hover:bg-violet-300"
               type="button"
               onClick={() => onToggleTodo(todo.id)}
             >
               {todo.completed ? "취소" : "완료"}
             </button>
             <button
-              className="rounded-xl bg-red-100 px-3 py-2 text-sm font-semibold text-red-600"
+              className="rounded-xl bg-red-100 px-3 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-200"
               type="button"
               onClick={() => onDeleteTodo(todo.id)}
             >

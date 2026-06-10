@@ -1,30 +1,38 @@
-# 공통 Button 컴포넌트 분리 계획
+# Todo 필터 탭 기능 추가 계획
 
 ## Summary
 
-- 버튼들을 `src/components/ui/Button.jsx`로 모아 공통 컴포넌트화한다.
-- `TodoForm`의 추가 버튼과 `TodoItem`의 저장/취소/수정/완료/삭제 버튼을 모두 `Button` 컴포넌트로 교체한다.
-- Todo 동작은 유지하고 Tailwind 클래스 중복만 줄인다.
+- Todo 목록 위에 `전체`, `진행중`, `완료` 3개 필터 탭을 추가한다.
+- 선택한 탭에 따라 보여줄 Todo만 필터링한다.
+- 현재 선택된 탭은 배경색, 텍스트색, 그림자 등으로 명확히 구분한다.
 
 ## Implementation Changes
 
-- `src/components/ui/Button.jsx`를 생성한다.
-- `variant`는 `primary`, `secondary`, `muted`, `soft`, `danger`로 구성한다.
-- `size`는 `md`, `lg`로 구성한다.
-- 기본 `type`은 `"button"`으로 둔다.
-- 폼 제출 버튼만 `type="submit"`을 명시한다.
-- `TodoForm.jsx`, `TodoItem.jsx`의 기존 `<button>`을 `<Button>`으로 교체한다.
-- 추가 의존성 없이 배열과 `filter(Boolean).join(" ")` 방식으로 `className`을 조합한다.
+- `App.jsx`에 `filter` 상태를 추가하고 기본값은 `"all"`로 둔다.
+- 필터 값은 `"all"`, `"active"`, `"completed"` 3개로 고정한다.
+- `App.jsx`에서 `filteredTodos`를 계산해 `TodoList`에는 필터링된 목록만 전달한다.
+- `src/components/TodoFilter.jsx`를 새로 만들고 `currentFilter`, `onChangeFilter` props를 받게 한다.
+- `TodoFilter`는 3개 탭 버튼을 렌더링하고, 현재 선택된 탭에만 활성 스타일을 적용한다.
+- `TodoList.jsx`는 현재 필터에 맞는 빈 상태 문구를 표시할 수 있게 한다.
+- 기존 Todo 추가, 수정, 완료, 삭제 동작은 유지한다.
+
+## Empty States
+
+- 전체: `아직 등록된 할 일이 없습니다.`
+- 진행중: `진행중인 할 일이 없습니다.`
+- 완료: `완료된 할 일이 없습니다.`
 
 ## Test Plan
 
-- `npm.cmd run build`로 Vite 빌드 성공 여부를 확인한다.
-- Todo 추가 버튼 클릭과 Enter submit 동작을 확인한다.
-- 인라인 수정의 저장/취소 동작을 확인한다.
-- 완료/취소 토글과 삭제 동작을 확인한다.
+- 전체 탭에서 모든 Todo가 보이는지 확인한다.
+- 진행중 탭에서 완료되지 않은 Todo만 보이는지 확인한다.
+- 완료 탭에서 완료된 Todo만 보이는지 확인한다.
+- 탭을 바꿀 때 활성 탭 스타일이 명확히 바뀌는지 확인한다.
+- 진행중 탭에서 Todo를 완료 처리하면 목록에서 사라지는지 확인한다.
+- 완료 탭에서 완료 취소하면 목록에서 사라지는지 확인한다.
 
 ## Assumptions
 
-- 버튼 위치는 `src/components/ui/Button.jsx`로 둔다.
-- 다른 UI 컴포넌트는 이번 단계에서 분리하지 않는다.
-- 기존 Todo 컴포넌트 파일 위치는 유지한다.
+- 필터 상태는 URL이나 localStorage에 저장하지 않고 React state로만 관리한다.
+- 필터 탭에는 개수 배지를 표시하지 않는다.
+- 이번 변경은 필터 기능만 추가하고, 버튼은 각 컴포넌트에서 직접 렌더링한다.
