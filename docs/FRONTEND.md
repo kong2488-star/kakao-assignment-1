@@ -69,6 +69,7 @@ BACKEND_API_URL=http://localhost:8000
 ```
 
 - 실제 `.env.local`은 커밋하지 않고 `.env.example`을 제공한다.
+- `BACKEND_API_URL`은 필수이며, 누락 시 프론트엔드 서버 측 Todo API 호출은 설정 오류로 실패한다.
 - `NEXT_PUBLIC_` 접두사가 붙은 백엔드 URL을 만들지 않는다.
 - 기본 로컬 포트는 `3000`이다.
 - TypeScript strict 모드를 유지한다.

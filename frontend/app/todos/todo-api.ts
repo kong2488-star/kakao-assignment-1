@@ -1,11 +1,12 @@
 import type { Todo, TodoStatus } from "./types";
 
-const DEFAULT_BACKEND_API_URL = "http://localhost:8000";
-
 function getBackendApiUrl() {
-  return (
-    process.env.BACKEND_API_URL?.replace(/\/$/, "") ?? DEFAULT_BACKEND_API_URL
-  );
+  const backendApiUrl = process.env.BACKEND_API_URL?.replace(/\/$/, "");
+  if (!backendApiUrl) {
+    throw new Error("BACKEND_API_URL environment variable is required.");
+  }
+
+  return backendApiUrl;
 }
 
 function backendUrl(path: string) {
