@@ -54,7 +54,9 @@ Browser
 - Frontend: Next.js 15+, App Router, React 18+, TypeScript 5, Tailwind CSS 4, Axios
 - Backend: FastAPI 0.111+, Uvicorn, SQLAlchemy, SQLite, Pydantic 2
 - 브라우저는 FastAPI를 직접 호출하지 않는다.
-- Server Actions와 `actions.ts`는 사용하지 않는다.
+- Next.js API Route `/api/todos`는 FastAPI 요청 프록시로 유지한다.
+- Server Actions와 `actions.ts`는 프론트엔드 폼과 페이지 흐름 처리에 사용할 수 있다.
+- Server Actions에서도 백엔드 URL은 서버 측에서만 사용하고 브라우저 번들에 노출하지 않는다.
 - FastAPI CORS는 설정하지 않는다.
 - 기존 `localStorage` 데이터는 이전하지 않는다.
 - 날짜와 시각은 한국 표준시 정책을 따른다.

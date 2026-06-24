@@ -62,7 +62,7 @@ kakao-assignment-3/
 
 ```text
 Browser
-  → Next.js API Route (/api/todos)
+  → Next.js API Route (/api/todos) 또는 Server Actions (actions.ts)
   → FastAPI (BACKEND_API_URL)
   → SQLAlchemy
   → SQLite
@@ -71,7 +71,8 @@ Browser
 - 브라우저는 Axios로 같은 출처의 Next.js API Route만 호출한다.
 - Next.js API Route는 FastAPI 요청을 중계하고 상태 코드와 응답 본문을 가능한 그대로 전달한다.
 - FastAPI 주소는 서버 전용 환경변수로 관리하고 브라우저 번들에 노출하지 않는다.
-- Server Actions는 사용하지 않으며 `actions.ts`를 만들지 않는다.
+- `actions.ts`는 프론트엔드 폼과 페이지 흐름을 처리하는 Server Actions 파일로 사용할 수 있다.
+- Server Actions도 FastAPI 주소를 서버 측에서만 사용하고 브라우저 번들에 노출하지 않는다.
 - FastAPI CORS는 설정하지 않는다.
 - 별도의 서버 상태 라이브러리를 추가하지 않는다.
 
