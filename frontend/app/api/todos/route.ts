@@ -1,10 +1,20 @@
-import { NextResponse } from "next/server";
+import { type NextRequest } from "next/server";
+import { normalizeStatus } from "../../todos/date-utils";
+import { proxyBackend, todoListPath } from "../../todos/todo-api";
 
-const notImplemented = () =>
-  NextResponse.json(
-    { detail: "Todo API proxy is not implemented yet." },
-    { status: 501 },
+export async function GET(request: NextRequest) {
+  const dueDate = request.nextUrl.searchParams.get("due_date") ?? "";
+  const status = normalizeStatus(
+    request.nextUrl.searchParams.get("status") ?? "",
   );
 
-export const GET = notImplemented;
-export const POST = notImplemented;
+  return proxyBackend(todoListPath(dueDate, status));
+}
+
+export async function POST(request: NextRequest) {
+  return proxyBackend("/todos", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: await request.text(),
+  });
+}

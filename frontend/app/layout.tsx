@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Kakao Todo",
-  description: "Kakao assignment Todo application",
+  title: "Todo",
+  description: "Todo application",
 };
 
 export default function RootLayout({

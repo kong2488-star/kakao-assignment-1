@@ -14,7 +14,7 @@ export default function TodosError({
       <button
         type="button"
         onClick={reset}
-        className="rounded-md bg-purple-700 px-4 py-2 text-sm font-semibold text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+        className="rounded-md bg-purple-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-purple-600 focus:text-white focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2"
       >
         다시 시도
       </button>
