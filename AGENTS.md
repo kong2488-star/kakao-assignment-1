@@ -48,11 +48,11 @@ Browser
   → Next.js API Route (/api/todos)
   → FastAPI (BACKEND_API_URL)
   → SQLAlchemy
-  → SQLite
+  → PostgreSQL
 ```
 
 - Frontend: Next.js 15+, App Router, React 18+, TypeScript 5, Tailwind CSS 4, Axios
-- Backend: FastAPI 0.111+, Uvicorn, SQLAlchemy, SQLite, Pydantic 2
+- Backend: FastAPI 0.111+, Uvicorn, SQLAlchemy, PostgreSQL, Pydantic 2
 - 브라우저는 FastAPI를 직접 호출하지 않는다.
 - Next.js API Route `/api/todos`는 FastAPI 요청 프록시로 유지한다.
 - Server Actions와 `actions.ts`는 프론트엔드 폼과 페이지 흐름 처리에 사용할 수 있다.

@@ -15,7 +15,7 @@ type Todo = {
 
 필드 규칙:
 
-- `id`: SQLite 양의 정수 자동 증가 기본 키
+- `id`: PostgreSQL에서 생성하는 양의 정수 기본 키
 - `title`: 앞뒤 공백을 제거한 1자 이상 200자 이하 문자열
 - `completed`: 생성 시 기본값 `false`
 - `due_date`: 한국 날짜를 나타내는 `YYYY-MM-DD` 문자열
