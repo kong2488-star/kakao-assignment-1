@@ -10,7 +10,7 @@ from sqlalchemy import Boolean, Date, DateTime, Integer, String, create_engine, 
 from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column, sessionmaker
 
 KST = timezone(timedelta(hours=9))
-DEFAULT_DATABASE_URL = "sqlite:///./todos.db"
+POSTGRESQL_URL_PREFIX = "postgresql+psycopg://"
 
 
 class Base(DeclarativeBase):
@@ -118,13 +118,15 @@ class TodoRead(BaseModel):
 def create_app(database_url: str | None = None) -> FastAPI:
     load_dotenv(".env.local")
 
-    resolved_database_url = database_url or getenv("DATABASE_URL", DEFAULT_DATABASE_URL)
-    connect_args = (
-        {"check_same_thread": False}
-        if resolved_database_url.startswith("sqlite")
-        else {}
-    )
-    engine = create_engine(resolved_database_url, connect_args=connect_args)
+    resolved_database_url = database_url or getenv("DATABASE_URL")
+    if not resolved_database_url:
+        raise RuntimeError("DATABASE_URL environment variable is required.")
+    if not resolved_database_url.startswith(POSTGRESQL_URL_PREFIX):
+        raise RuntimeError(
+            "DATABASE_URL must use the postgresql+psycopg:// driver URL."
+        )
+
+    engine = create_engine(resolved_database_url)
     session_local = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 
     Base.metadata.create_all(bind=engine)

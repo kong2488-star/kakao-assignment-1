@@ -1,23 +1,42 @@
 from collections.abc import Iterator
-from pathlib import Path
-from tempfile import TemporaryDirectory
+from os import environ, getenv
 from time import sleep
 
 import pytest
+from dotenv import load_dotenv
 from fastapi.testclient import TestClient
+from sqlalchemy.engine import make_url
 
-from main import create_app
+load_dotenv(".env.local")
+
+TEST_DATABASE_URL = getenv("TEST_DATABASE_URL")
+if not TEST_DATABASE_URL:
+    raise RuntimeError("TEST_DATABASE_URL environment variable is required.")
+
+test_database = make_url(TEST_DATABASE_URL)
+if test_database.drivername != "postgresql+psycopg":
+    raise RuntimeError("TEST_DATABASE_URL must use postgresql+psycopg://.")
+if test_database.database != "todo_test":
+    raise RuntimeError("TEST_DATABASE_URL must target the todo_test database.")
+
+environ["DATABASE_URL"] = TEST_DATABASE_URL
+
+from main import Base, create_app  # noqa: E402
+from main import app as default_app  # noqa: E402
+
+default_app.state.engine.dispose()
 
 
 @pytest.fixture()
 def client() -> Iterator[TestClient]:
-    test_db_root = Path(".test-dbs")
-    test_db_root.mkdir(exist_ok=True)
-    with TemporaryDirectory(dir=test_db_root) as temp_dir:
-        database_url = f"sqlite:///{Path(temp_dir) / 'test.db'}"
-        app = create_app(database_url)
+    app = create_app(TEST_DATABASE_URL)
+    Base.metadata.drop_all(bind=app.state.engine)
+    Base.metadata.create_all(bind=app.state.engine)
+    try:
         with TestClient(app) as test_client:
             yield test_client
+    finally:
+        Base.metadata.drop_all(bind=app.state.engine)
         app.state.engine.dispose()
 
 

@@ -19,7 +19,9 @@ npm run build
 Backend:
 
 ```bash
+docker compose up -d postgres postgres-test
 cd backend
+cp .env.example .env.local
 python -m venv .venv
 python -m pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
@@ -42,7 +44,7 @@ pytest
 
 ## Backend 자동 테스트
 
-pytest는 운영 DB와 분리된 임시 SQLite DB를 사용한다.
+pytest는 개발·운영 DB와 분리된 `todo_test` PostgreSQL DB를 사용한다. 테스트는 각 테스트 전후 테이블을 재생성하며, `TEST_DATABASE_URL`이 `todo_test`가 아니면 데이터 보호를 위해 즉시 실패한다.
 
 최소 테스트:
 

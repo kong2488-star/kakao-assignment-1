@@ -65,7 +65,7 @@ Browser
   → Next.js API Route (/api/todos) 또는 Server Actions (actions.ts)
   → FastAPI (BACKEND_API_URL)
   → SQLAlchemy
-  → SQLite
+  → PostgreSQL
 ```
 
 - 브라우저는 Axios로 같은 출처의 Next.js API Route만 호출한다.
@@ -79,7 +79,7 @@ Browser
 ## 설계 범위
 
 - 기존 Todo 기능과 보라색 계열 디자인을 유지한다.
-- 기존 앱의 `localStorage` 데이터는 새 SQLite DB로 이전하지 않는다.
+- 기존 앱의 `localStorage`와 SQLite 데이터는 PostgreSQL로 이전하지 않는다.
 - 목록 페이지네이션은 적용하지 않는다.
 - 초기 버전에는 인증, 사용자 구분, Alembic을 도입하지 않는다.
 - 과제 규모를 넘어서는 전역 상태, 서비스 계층, 범용 추상화는 요구가 생길 때만 추가한다.
