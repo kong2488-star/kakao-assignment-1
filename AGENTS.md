@@ -18,6 +18,7 @@
 - 코드 변경이 포함된 모든 작업: [Plan 운영 규칙](docs/PLANNING.md)
 - 코드 변경의 과정과 검증 기록: [하네스 작업 로그](docs/HARNESS_LOGGING.md)
 - Git 작업과 커밋: [Git 작업 규칙](docs/GIT_WORKFLOW.md)
+- 운영 배포 작업: [운영 배포](docs/DEPLOYMENT.md)
 - 커밋 전 필수 검증: [커밋 전 검증 게이트](docs/PRE_COMMIT_VALIDATION.md)
 - 모든 작업: [아키텍처](docs/ARCHITECTURE.md)
 - 데이터 모델 또는 API 작업: [API 계약](docs/API.md)

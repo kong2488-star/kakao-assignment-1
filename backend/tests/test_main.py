@@ -21,10 +21,32 @@ if test_database.database != "todo_test":
 
 environ["DATABASE_URL"] = TEST_DATABASE_URL
 
-from main import Base, create_app  # noqa: E402
+from main import Base, create_app, normalize_database_url  # noqa: E402
 from main import app as default_app  # noqa: E402
 
 default_app.state.engine.dispose()
+
+
+@pytest.mark.parametrize(
+    ("database_url", "expected"),
+    [
+        (
+            "postgresql://user:password@host:5432/todo_app?sslmode=require",
+            "postgresql+psycopg://user:password@host:5432/todo_app?sslmode=require",
+        ),
+        (
+            "postgresql+psycopg://user:password@host:5432/todo_app",
+            "postgresql+psycopg://user:password@host:5432/todo_app",
+        ),
+    ],
+)
+def test_normalize_database_url(database_url: str, expected: str) -> None:
+    assert normalize_database_url(database_url) == expected
+
+
+def test_normalize_database_url_rejects_non_postgresql_url() -> None:
+    with pytest.raises(RuntimeError, match="must use postgresql"):
+        normalize_database_url("sqlite:///todos.db")
 
 
 @pytest.fixture()

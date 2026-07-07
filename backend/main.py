@@ -11,6 +11,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column, sess
 
 KST = timezone(timedelta(hours=9))
 POSTGRESQL_URL_PREFIX = "postgresql+psycopg://"
+STANDARD_POSTGRESQL_URL_PREFIX = "postgresql://"
 
 
 class Base(DeclarativeBase):
@@ -63,6 +64,20 @@ def validate_title(value: str) -> str:
     if len(title) > 200:
         raise ValueError("title must be 200 characters or fewer.")
     return title
+
+
+def normalize_database_url(database_url: str) -> str:
+    if database_url.startswith(POSTGRESQL_URL_PREFIX):
+        return database_url
+    if database_url.startswith(STANDARD_POSTGRESQL_URL_PREFIX):
+        return database_url.replace(
+            STANDARD_POSTGRESQL_URL_PREFIX,
+            POSTGRESQL_URL_PREFIX,
+            1,
+        )
+    raise RuntimeError(
+        "DATABASE_URL must use postgresql:// or postgresql+psycopg://."
+    )
 
 
 class TodoCreate(BaseModel):
@@ -121,12 +136,8 @@ def create_app(database_url: str | None = None) -> FastAPI:
     resolved_database_url = database_url or getenv("DATABASE_URL")
     if not resolved_database_url:
         raise RuntimeError("DATABASE_URL environment variable is required.")
-    if not resolved_database_url.startswith(POSTGRESQL_URL_PREFIX):
-        raise RuntimeError(
-            "DATABASE_URL must use the postgresql+psycopg:// driver URL."
-        )
 
-    engine = create_engine(resolved_database_url)
+    engine = create_engine(normalize_database_url(resolved_database_url))
     session_local = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 
     Base.metadata.create_all(bind=engine)

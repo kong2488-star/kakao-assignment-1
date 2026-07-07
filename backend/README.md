@@ -20,7 +20,7 @@ PowerShell에서는 환경 파일을 다음과 같이 복사할 수 있다.
 Copy-Item .env.example .env.local
 ```
 
-`DATABASE_URL`은 애플리케이션 DB, `TEST_DATABASE_URL`은 이름이 `todo_test`인 테스트 전용 DB를 가리켜야 한다. 배포 환경에서는 관리형 PostgreSQL의 연결 URL을 `postgresql+psycopg://` 형식으로 설정한다.
+`DATABASE_URL`은 애플리케이션 DB, `TEST_DATABASE_URL`은 이름이 `todo_test`인 테스트 전용 DB를 가리켜야 한다. 배포 환경의 `postgresql://` URL과 명시적인 `postgresql+psycopg://` URL을 모두 지원한다.
 
 ## 검증
 

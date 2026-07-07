@@ -11,6 +11,7 @@ kakao-assignment-3/
 │   ├── ARCHITECTURE.md
 │   ├── API.md
 │   ├── BACKEND.md
+│   ├── DEPLOYMENT.md
 │   ├── FRONTEND.md
 │   ├── GIT_WORKFLOW.md
 │   ├── HARNESS_LOGGING.md
@@ -25,6 +26,7 @@ kakao-assignment-3/
 │   └── NNN-english-kebab-case-title.md
 ├── scripts/
 │   └── verify-before-commit.ps1
+├── render.yaml
 ├── frontend/
 │   ├── app/
 │   │   ├── api/

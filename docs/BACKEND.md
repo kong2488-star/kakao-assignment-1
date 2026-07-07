@@ -26,6 +26,7 @@ TEST_DATABASE_URL=postgresql+psycopg://todo_test_user:todo_test_password@localho
 - `.env.example`을 제공한다.
 - 기본 로컬 포트는 `8000`이다.
 - 로컬 PostgreSQL은 루트 `compose.yaml`로 실행한다.
+- Render가 제공하는 `postgresql://` URL은 애플리케이션에서 Psycopg 3 URL로 정규화한다.
 - 테스트는 개발 DB와 분리된 `todo_test` PostgreSQL DB를 사용한다.
 - 테스트 정리 로직은 데이터베이스 이름이 `todo_test`인 경우에만 실행한다.
 
